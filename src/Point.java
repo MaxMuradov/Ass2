@@ -2,17 +2,12 @@
  * class Point.
  */
 public class Point {
-    /**
-     * x coordinate.
-     */
+
     private final double x;
-    /**
-     * y coordinate.
-     */
     private final double y;
 
     /**
-     * constructor.
+     * Constructor for class Point.
      * @param x1 x coord
      * @param y1 y coord
      */
@@ -22,7 +17,7 @@ public class Point {
     }
 
     /**
-     * distance between points calc method.
+     * Distance between points calc method.
      * @param other 2-nd point
      * @return distance in double
      */
@@ -31,7 +26,7 @@ public class Point {
     }
 
     /**
-     * check if point is on the same coords.
+     * Check if point is on the same coords.
      * @param other 2-nd point
      * @return true if equals
      */
@@ -40,7 +35,7 @@ public class Point {
     }
 
     /**
-     * check if point is on the segment.
+     * Check if point is on the segment.
      * @param other segment
      * @return true if point on the segment
      */
@@ -52,7 +47,7 @@ public class Point {
     }
 
     /**
-     * determines what is the orientation of point to start/end of segment.
+     * Determines what is the orientation of point to start/end of segment.
      * @param other segment
      * @return 0 if collinear, 1 if clockwise, -1 otherwise
      */
@@ -68,7 +63,7 @@ public class Point {
     }
 
     /**
-     * getter of x coord.
+     * Getter of x coord.
      * @return x coord of point
      */
     public double getX() {
@@ -76,11 +71,35 @@ public class Point {
     }
 
     /**
-     * getter of y coord.
+     * Getter of y coord.
      * @return y coord of point
      */
     public double getY() {
         return this.y;
     }
+
+    /**
+     * Never actually used so whatever.
+     * @param frame frame
+     * @return possition in relation to a line
+     */
+    boolean inFrame(Line[] frame) {
+        // Initialize boundaries
+        double xMin = Double.MAX_VALUE, xMax = Double.MIN_VALUE;
+        double yMin = Double.MAX_VALUE, yMax = Double.MIN_VALUE;
+
+        // Find the min and max coordinates for the entire frame
+        for (int i = 0; i < frame.length; i++) {
+            xMin = Math.min(xMin, Math.min(frame[i].start().x, frame[i].end().x));
+            xMax = Math.max(xMax, Math.max(frame[i].start().x, frame[i].end().x));
+            yMin = Math.min(yMin, Math.min(frame[i].start().y, frame[i].end().y));
+            yMax = Math.max(yMax, Math.max(frame[i].start().y, frame[i].end().y));
+        }
+
+        // Check if this object's position is within the bounding box
+        return (this.getX() >= xMin && this.getX() <= xMax)
+                && (this.getY() >= yMin && this.getY() <= yMax);
+    }
+
 }
 
